@@ -55,6 +55,7 @@ def main():
     ccapi = Confluence(args.uri)
     if ccapi.auth(args.username, args.password):
         if ccapi.upload_attachment(args.space, args.title, args.file):
+            logging.info('Uploaded "%s" to "%s" in "%s"', args.file, args.title, args.space)
             return 0
         else:
             logging.error('Failed to upload attachment')
