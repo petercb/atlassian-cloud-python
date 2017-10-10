@@ -28,7 +28,10 @@ class Confluence(AtlassianCloudRestAPI):
             'spaceKey': spacekey,
             'title': title,
         }
-        return self.get('/wiki/rest/api/content', params=params)['results'][0].get('id')
+        try:
+            return self.get('/wiki/rest/api/content', params=params)['results'][0].get('id')
+        except (KeyError, IndexError):
+            return None
 
 
     def lookup_attachment_id(self, pageid, name):
@@ -37,7 +40,10 @@ class Confluence(AtlassianCloudRestAPI):
             'filename': name,
         }
         path = '/wiki/rest/api/content/{0}/child/attachment'.format(pageid)
-        return self.get(path, params=params)['results'][0].get('id')
+        try:
+            return self.get(path, params=params)['results'][0].get('id')
+        except (KeyError, IndexError):
+            return None
 
 
     def upload_file(self, path, filepath, name=None, content_type=None):

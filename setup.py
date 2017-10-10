@@ -22,10 +22,12 @@ setup(
         ],
     },
     package_dir={'atlassiancloud': 'lib/atlassiancloud'},
-    scripts=[
-        'bin/upload_attachments.py'
-    ],
-    install_requires=['requests', 'python-magic'],
+    entry_points={
+        'console_scripts': [
+            'upload_attachments = atlassiancloud.cli:upload_attachments_cli'
+        ]
+    },
+    install_requires=['requests', 'python-magic', 'click'],
 
     classifiers=[
         'Development Status :: 4 - Beta',
